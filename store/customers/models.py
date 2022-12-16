@@ -21,7 +21,7 @@ class CustomUser(AbstractUser):
 
 class Profile(BaseModel):
     user = models.OneToOneField(CustomUser,models.CASCADE)
-    picture = models.ImageField(null=True, blank=True)
+    picture = models.ImageField(default='default.png', upload_to='profile_images', null=True, blank=True)
     wishlist = models.ManyToManyField(Item, blank=True)
 
     def __str__(self) -> str:

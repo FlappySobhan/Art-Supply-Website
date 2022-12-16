@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<img src="{% get_media_prefix %}/profile_images/{{ profile.picture }}" 
+alt="{{user.username}}'s profile" style="height:5vw;width: 5vw;">
+
+<h2>{{ user.username }}</h2>
+<p>{{ user.first_name }} {{ user.last_name }}</p>
+
+<p>phone: {{ user.phone_number }}</p>
+{% endblock %}
