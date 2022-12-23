@@ -1,10 +1,7 @@
 from django.db import models
+from core.models import BaseModel
 from customers.models import Profile, Address
-class BaseModel(models.Model):
-    is_deleted = models.BooleanField(default=False)
-    creation_date = models.DateTimeField(auto_now_add=True)
-    class Meta:
-        abstract=True
+
 class Coupon(BaseModel):
     code = models.CharField(max_length=10)
     percent = models.DecimalField(decimal_places=2, max_digits=2)
