@@ -3,11 +3,27 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-<img src="{% get_media_prefix %}/profile_images/{{ profile.picture }}" 
-alt="{{user.username}}'s profile" style="height:5vw;width: 5vw;">
+<img src="{% get_media_prefix %}profile_images/{{ profile.picture }}" 
+alt="{{logged_in_user.username}}'s profile" style="height:5vw;width: 5vw;">
 
-<h2>{{ user.username }}</h2>
-<p>{{ user.first_name }} {{ user.last_name }}</p>
+<h2>{% if logged_in_user.first_name %}
+    {{ logged_in_user.first_name }}
+    {% else %}
+    No Name!
+    {% endif %}</h2>
+<p>email: {{ logged_in_user.email }}</p>
+<p>phone: {{ logged_in_user.phone_number }}</p>
+<h4>Wish List:</h4>
+<ul>
+    {% if profile.wishlist.all %}
+    {% for item in profile.wishlist.all %}
+    <li>name :  price : is available</li>
+    <li>{{ item.name }} : {{ item.price }} : {% if item.stock %}yes{% else %}no{% endif %}
+    </li>
+    {% endfor %}
 
-<p>phone: {{ user.phone_number }}</p>
+    {% else %}
+    <li>no items</li>
+    {% endif %}
+</ul>
 {% endblock %}

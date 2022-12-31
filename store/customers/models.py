@@ -1,19 +1,22 @@
 from django.db import models
 from core.models import BaseModel
 from django.contrib.auth.models import AbstractBaseUser
-from django.core.validators import RegexValidator
 from products.models import Item 
+from .validators import phone_number_validator
 from .managers import UsersManager
+from django.utils.text import slugify
+from django.utils.translation import gettext_lazy as _
 
 class CustomUser(AbstractBaseUser):
-    phone_regex = RegexValidator(r'^(0|\+98)?9[\d]{9}$',
-    "Phone number must be entered in the format: '+989123456789'. Up to 12 digits allowed.")
-    phone_number = models.CharField(max_length=13, unique=True, validators=[phone_regex])
-    email = models.EmailField(unique=True)
-    full_name = models.CharField(max_length=100)
+    phone_number = models.CharField(_('Phone Number'), max_length=13, unique=True, validators=[phone_number_validator])
+    email = models.EmailField(max_length=60, unique=True, blank=True, null=True, default='')
+    first_name = models.CharField(max_length=30, blank=True,null=True, default='')
+    last_name = models.CharField(max_length=30, blank=True,null=True, default='')
     is_active = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
-    
+    is_superuser = models.BooleanField(default=False)
+    slug = models.SlugField(unique=True, default='')
+
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "phone_number"
     REQUIRED_FIELDS = ['email', 'is_admin']
@@ -21,7 +24,7 @@ class CustomUser(AbstractBaseUser):
     objects = UsersManager()
 
     def __str__(self):
-        return self.get_username()
+        return f"{self.first_name} {self.last_name}"
 
     
     def has_perm(self, perm, obj=None):
@@ -33,6 +36,14 @@ class CustomUser(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            try:
+                self.slug = slugify(self.email.split('@')[0] + '-' + self.phone_number[-4:])
+            except:
+                self.slug = slugify(self.phone_number)
+        return super().save(*args, **kwargs)
 
 class Profile(BaseModel):
     user = models.OneToOneField(CustomUser,models.CASCADE)

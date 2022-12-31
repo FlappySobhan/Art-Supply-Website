@@ -1,69 +1,69 @@
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView
-from django.views.generic import View
-from django.urls import reverse_lazy
+from django.views.generic import DetailView,CreateView,View
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from .forms import CustomUserCreationForm, CustomUserChangeForm, ProfileUpdateForm
+from django.contrib.auth import get_user_model
+from django.contrib.auth import login as auth_login, authenticate
+User = get_user_model()
+
 from .models import Profile
-class SignUpView(CreateView):
-    form_class = CustomUserCreationForm
-    success_url = reverse_lazy("login")
-    template_name = "signup.html"
+from .forms import SignupForm, LoginForm
 
-class ProfileView(View):
-    model = Profile
+class ProfileView(DetailView):
+    model = User
     template_name = "account/profile.html"
+    context_object_name = "logged_in_user"
 
-    def get(self, request, *args, **kwargs):
-        profile = Profile.objects.get(user=request.user)
-        # u_form = CustomUserChangeForm(instance=request.user)
-        # p_form = ProfileUpdateForm(instance=profile)
-        context = {
-            'profile': profile,
-        }
-        return render(request, self.template_name, context)
+    def get_object(self, *args, **kwargs):
+        user = super().get_object()
+        self.profile = Profile.objects.get(user=user)
+        if user == self.request.user or self.request.user.is_superuser:
+            return user
+        else:
+            messages.error(self.request, "You don't have permission to view this page")
+            return redirect("home")
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["profile"] = Profile.objects.get(user=self.request.user)
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile'] = self.profile
+        return context
 
+class SignupView(CreateView):
+    form_class = SignupForm
+    success_url = "account_login"
+    template_name = "account/signup.html"
+    
+    def form_valid(self, form):
+        user = form.save()
+        messages.success(self.request, "Account created successfully")
+        return redirect("account_login")
 
-# def register(request):
-#     if request.method == 'POST':
-#         form = CustomUserCreationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             messages.success(request, f'Your account has been created! You are now able to log in')
-#             return redirect('login')
-#     else:
-#         form = CustomUserCreationForm()
-#     return render(request, 'users/register.html', {'form': form})
- 
+class LoginView(View):
+    def get(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            messages.error(self.request, "You are already logged in")
+            return redirect("profile")
+        return render(self.request, "account/login.html", {"form": LoginForm()})
 
-# @login_required
-# def profile(request):
-    # if request.method == 'POST':
-    #     profile = Profile.objects.get(user=request.user)
-    #     u_form = CustomUserChangeForm(request.POST, instance=request.user)
-    #     p_form = ProfileUpdateForm(request.POST,
-    #                                request.FILES,
-    #                                instance=profile)
-    #     if u_form.is_valid() and p_form.is_valid():
-    #         u_form.save()
-    #         p_form.save()
-    #         messages.success(request, f'Your account has been updated!')
-    #         return redirect('profile')
- 
-    # else:
-    #     u_form = CustomUserChangeForm(instance=request.user)
-    #     p_form = ProfileUpdateForm(instance=profile)
- 
-    # context = {
-    #     'u_form': u_form,
-    #     'p_form': p_form
-    # }
- 
-    # return render(request, 'account/profile.html', context)
+    def post(self, *args, **kwargs):
+        form = LoginForm(self.request.POST or None)
+        if form.is_valid():
+            login = form.cleaned_data.get('login')
+            password = form.cleaned_data.get('password')
+            remember = form.cleaned_data.get('remember')
+            try:
+                user = User.objects.get(phone_number=login)
+            except User.DoesNotExist:
+                messages.error(self.request, "Invalid login or password")
+                return redirect("account_login")
+
+            if user.check_password(password):
+                auth_login(self.request, user)
+                messages.success(self.request, "You have successfully logged in")
+                if not remember:
+                    self.request.session.set_expiry(0)
+                    # self.request.session.modified = True
+                return redirect("account_profile", slug=user.slug)
+                
+        
+        messages.error(self.request, "Check login and password!")
+        return redirect("account_login")
