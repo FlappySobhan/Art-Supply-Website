@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-center">
+  <div class="border rounded w-75 mt-4 pt-4">
+    <h2 class="text-center">Sign Up</h2>
+    <div class="d-flex justify-content-between">
+      <form method="post" class="m-5 p-3">
+        {% csrf_token %}
+        <div class="row">
+          {% for field in form %}
+          <div class="col-md-6 mb-3">
+            <label for="" class="form-label">{{field.label}}</label>
+            {{ field }}
+            <div class="valid-feedback">
+              Looks good!
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="row p-3 text-center">
+        <button class="btn btn-primary mt-1" type="submit">Sign Up</button>
+        
+        <button class="btn btn-danger mt-2" type="reset">Reset</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

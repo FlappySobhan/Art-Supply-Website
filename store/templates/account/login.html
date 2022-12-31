@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-center">
+  <div class="border rounded w-50 mt-4 pt-4">
+    <h2 class="text-center">Login</h2>
+    <div class="d-flex justify-content-center">
+      <form method="post" class="m-5 p-3">
+        {% include 'messages.html' %}
+        {% csrf_token %}
+        <div class="row">
+          {% for field in form %}
+          <div class="col-xlg-6 text-center mt-4">
+            {% if field.name != 'remember' %}
+            <div class="form-floating">
+              {{field}}
+              <label class="" for="id_{{field.name}}">{{field.label}}</label>
+                {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+          <div class="form-check form-switch pt-4 pb-4">
+            {{ form.remember }}
+            <label class="form-check-label" for="id_{{form.remember.name}}">{{form.remember.label}}</label>
+          </div>
+          <button class="btn btn-primary mt-1" type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
