@@ -28,7 +28,7 @@
             <ul class="navbar-nav m-3 d-flex align-items-center">
                 {% if user.is_authenticated %}
                 <li class="nav-item active  d-flex align-items-center">
-                    <a class="nav-link" href="{% url 'profile' user.slug %}">{{ user.phone_number }}</a><span
+                    <a class="nav-link" href="{% url 'account_profile' user.slug %}">{{ user.phone_number }}</a><span
                         class="d-none d-md-block" style="color: gainsboro;">|</span>
                 </li>
                 <li class="nav-item active  d-flex align-items-center">

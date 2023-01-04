@@ -54,6 +54,9 @@ class Profile(BaseModel):
         return f"{self.user.get_username()} Profile"
 
 class Address(BaseModel):
+    class Meta:
+        verbose_name_plural = "Addresses"
+        
     profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
     country = models.CharField(max_length=15)
     city = models.CharField(max_length=25)

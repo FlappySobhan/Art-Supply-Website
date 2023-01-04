@@ -2,6 +2,8 @@ from django.db import models
 from core.models import BaseModel
 
 class Category(BaseModel):
+    class Meta:
+        verbose_name_plural = "Categories"
     category_name = models.CharField(max_length=35)
     sub_category = models.ForeignKey('self', on_delete=models.SET_NULL, null=True)
 
