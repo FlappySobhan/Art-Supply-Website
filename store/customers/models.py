@@ -15,14 +15,14 @@ class CustomUser(AbstractBaseUser):
     email = models.EmailField(_('E-mail'), max_length=60, unique=True, blank=True, null=True, default='')
     first_name = models.CharField(_('First Name'), max_length=30, blank=True,null=True, default='')
     last_name = models.CharField(_('Last Name'), max_length=30, blank=True,null=True, default='')
-    is_active = models.BooleanField(_('Active'), default=False)
+    is_active = models.BooleanField(_('Active'), default=True)
     is_admin = models.BooleanField(_('Admin'), default=False)
     is_superuser = models.BooleanField(_('Super User'), default=False)
     slug = models.SlugField(_('Slug'), unique=True, default='')
 
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "phone_number"
-    REQUIRED_FIELDS = ['email', 'is_admin']
+    REQUIRED_FIELDS = ['email',]
     
     objects = UsersManager()
 

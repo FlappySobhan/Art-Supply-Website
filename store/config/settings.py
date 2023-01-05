@@ -100,7 +100,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOCALE_PATHS = ['locale']
+LOCALE_PATHS = [os.path.join(BASE_DIR , 'locale')]
 
 AUTH_USER_MODEL = 'customers.CustomUser'
 
@@ -108,13 +108,17 @@ AUTH_USER_MODEL = 'customers.CustomUser'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "home"
-LOGOUT_REDIRECT_URL = "login"
-LOGIN_URL = "login"
+LOGOUT_REDIRECT_URL = "account_login"
+LOGIN_URL = "account_login"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
