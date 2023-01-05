@@ -16,7 +16,7 @@ class UsersManager(BaseUserManager):
             email=self.normalize_email(email) if email else None,
             first_name=first_name,
             last_name=last_name,
-            phone_number=phone_number,
+            phone_number=phone_number[-10:],
             is_active=True,
             is_admin=False,
         )
