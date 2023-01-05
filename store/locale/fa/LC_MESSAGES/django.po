@@ -1,0 +1,209 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-05 15:49+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: core/models.py:6
+msgid "Deleted"
+msgstr "پاک شده"
+
+#: core/models.py:7
+msgid "Create Date"
+msgstr "تاریخ ایجاد"
+
+#: core/models.py:8
+msgid "Activated"
+msgstr "فعال"
+
+#: customers/models.py:12 customers/models.py:55
+msgid "User"
+msgstr "کاربر"
+
+#: customers/models.py:13
+msgid "Users"
+msgstr "کاربران"
+
+#: customers/models.py:14
+msgid "Phone Number"
+msgstr "شماره همراه"
+
+#: customers/models.py:15
+msgid "E-mail"
+msgstr "ایمیل"
+
+#: customers/models.py:16
+msgid "First Name"
+msgstr "نام"
+
+#: customers/models.py:17
+msgid "Last Name"
+msgstr "نام خانوادگی"
+
+#: customers/models.py:18
+msgid "Active"
+msgstr "فعال"
+
+#: customers/models.py:19
+msgid "Admin"
+msgstr "ادمین"
+
+#: customers/models.py:20
+msgid "Super User"
+msgstr "ابرکاربر"
+
+#: customers/models.py:21
+msgid "Slug"
+msgstr "Slug"
+
+#: customers/models.py:53 customers/models.py:67 orders/models.py:19
+msgid "Profile"
+msgstr "پروفایل"
+
+#: customers/models.py:54
+msgid "Profiles"
+msgstr "پروفایل‌ها"
+
+#: customers/models.py:56
+msgid "Profile Picture"
+msgstr "تصویر پروفایل"
+
+#: customers/models.py:57
+msgid "Wishlist"
+msgstr "لیست علاقه‌مند‌ی‌ها"
+
+#: customers/models.py:64 orders/models.py:23
+msgid "Address"
+msgstr "آدرس"
+
+#: customers/models.py:65
+msgid "Addresses"
+msgstr "آدرس‌ها"
+
+#: customers/models.py:68
+msgid "Country"
+msgstr "کشور"
+
+#: customers/models.py:69
+msgid "City"
+msgstr "شهر"
+
+#: customers/models.py:70
+msgid "District"
+msgstr "استان"
+
+#: customers/models.py:71
+msgid "Street"
+msgstr "خیابان"
+
+#: customers/models.py:72
+msgid "Alley"
+msgstr "کوچه"
+
+#: customers/models.py:73
+msgid "Postal Code"
+msgstr "کد پستی"
+
+#: customers/validators.py:5
+msgid ""
+"Phone number must be entered in the format: '989123456789'. Up to 12 digits "
+"allowed."
+msgstr "شماره همراه باید به صورت '۹۱۲۳۴۵۶۷۸۹' وارد شود. حداکثر ۱۲ کارکتر."
+
+#: orders/models.py:8 orders/models.py:20
+msgid "Coupon"
+msgstr "کوپن"
+
+#: orders/models.py:9
+msgid "Coupons"
+msgstr "کوپن‌ها"
+
+#: orders/models.py:10
+msgid "Code"
+msgstr "کد"
+
+#: orders/models.py:11
+msgid "Percent"
+msgstr "درصد"
+
+#: orders/models.py:12
+msgid "Max Discount"
+msgstr "بیشترین حالت تخفیف"
+
+#: orders/models.py:13
+msgid "End Date"
+msgstr "تاریخ پایان"
+
+#: orders/models.py:17
+msgid "Order"
+msgstr "سفارش"
+
+#: orders/models.py:18
+msgid "Orders"
+msgstr "سفارشات"
+
+#: orders/models.py:21
+msgid "Discount"
+msgstr "تخفیف"
+
+#: orders/models.py:22 products/models.py:18
+msgid "Price"
+msgstr "قیمت"
+
+#: products/models.py:7 products/models.py:22
+msgid "Category"
+msgstr "دسته‌بندی"
+
+#: products/models.py:8
+msgid "Categories"
+msgstr "دسته‌‌بندی ها"
+
+#: products/models.py:9
+msgid "Category Name"
+msgstr "نام دسته‌بندی"
+
+#: products/models.py:10
+msgid "Sub Category"
+msgstr "دسته‌بندی بالایی"
+
+#: products/models.py:14
+msgid "Item"
+msgstr "آیتم"
+
+#: products/models.py:15
+msgid "Items"
+msgstr "آیتم‌ها"
+
+#: products/models.py:16
+msgid "Name"
+msgstr "نام"
+
+#: products/models.py:17
+msgid "Descriptions"
+msgstr "توضیحات"
+
+#: products/models.py:19
+msgid "Main Picture"
+msgstr "تصویر اصلی"
+
+#: products/models.py:20
+msgid "Secondary Picture"
+msgstr "تصویر فرعی"
+
+#: products/models.py:21
+msgid "Stock"
+msgstr "تعداد در انبار"
