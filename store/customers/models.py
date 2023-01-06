@@ -11,7 +11,7 @@ class CustomUser(AbstractBaseUser):
     class Meta:
         verbose_name = _("User")
         verbose_name_plural = _("Users")
-    phone_number = models.CharField(_('Phone Number'), max_length=10, unique=True, validators=[phone_number_validator])
+    phone_number = models.CharField(_('Phone Number'), max_length=13, unique=True, validators=[phone_number_validator])
     email = models.EmailField(_('E-mail'), max_length=60, unique=True, blank=True, null=True, default='')
     first_name = models.CharField(_('First Name'), max_length=30, blank=True,null=True, default='')
     last_name = models.CharField(_('Last Name'), max_length=30, blank=True,null=True, default='')
