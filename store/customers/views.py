@@ -1,22 +1,23 @@
 from django.shortcuts import render, redirect
-from django.views.generic import DetailView,CreateView,View
+from django.views.generic import DetailView,CreateView
 from django.contrib import messages
-from django.contrib.auth import login as auth_login,  get_user_model
+from django.contrib.auth import  get_user_model
 from django.contrib.auth.views import LoginView as BaseLoginView
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin,UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import resolve_url
-from django.core.exceptions import ImproperlyConfigured
+from django.http import Http404
+from django.urls import reverse_lazy as _
+
 User = get_user_model()
 
-from .models import Profile
 from .forms import SignupForm, LoginForm
 
 class ProfileView(PermissionRequiredMixin, DetailView):
     model = User
     template_name = "account/profile.html"
     context_object_name = "logged_in_user"
-    permission_denied_message = "You don't have permission to view this page.Check your account!"
+    permission_denied_message = _("You don't have permission to view this page.Check your account!")
     login_url = "account_login"
     
 
@@ -34,23 +35,38 @@ class ProfileView(PermissionRequiredMixin, DetailView):
         return object
 
     def get_object(self, *args, **kwargs):
-        user = super().get_object()
-        self.profile = Profile.objects.get(user=user)
+        try:
+            user = super().get_object()
+        except Http404:
+            messages.error(self.request, "User not found!")
+            return redirect("account_login") 
         return user
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['profile'] = self.profile
+        context['profile'] = self.get_object().profile
         return context
 
-class SignupView(CreateView):
+class SignupView(UserPassesTestMixin, CreateView):
     form_class = SignupForm
     success_url = "account_login"
     template_name = "account/signup.html"
+    prrmisson_denied_message = _("You are already logged in!")
     
+    def test_func(self):
+        return self.request.user.is_anonymous
+
+    def handle_no_permission(self):
+        try:
+            object = super().handle_no_permission()
+        except PermissionDenied:
+            messages.error(self.request, self.get_permission_denied_message())
+            return redirect("account_login")
+        return object
+
     def form_valid(self, form):
         user = form.save()
-        messages.success(self.request, "Account created successfully")
+        messages.success(self.request, _("Account created successfully"))
         return redirect("account_login")
 
 class LoginView(BaseLoginView):
@@ -71,3 +87,4 @@ class LoginView(BaseLoginView):
     def get_default_redirect_url(self):
         """Return the default redirect URL."""
         return resolve_url(self.next_page, getattr(self.request.user,self.next_page_arg))
+    
