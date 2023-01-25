@@ -53,7 +53,7 @@ class Profile(BaseModel):
         verbose_name = _("Profile")
         verbose_name_plural = _("Profiles")
     user = models.OneToOneField(CustomUser,models.CASCADE, verbose_name=_('User'), related_name='profile')
-    picture = models.ImageField(_('Profile Picture'), default='profile_images/default.png', upload_to='profile_images')
+    picture = models.ImageField(_('Profile Picture'), default='profile-images/default.png', upload_to='profile-images')
     wishlist = models.ManyToManyField(Item, blank=True, verbose_name=_('Wishlist'))
 
     def __str__(self) -> str:
