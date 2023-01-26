@@ -7,6 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>{% block title %} Art supply Shop {% endblock %}</title>
     <style>
@@ -16,23 +19,22 @@
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand" href="{% url 'home' %}">Art Supply</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link" href="#">ABOUT US</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#footer">ABOUT US</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">PRODUCTS</a>
                         <ul class="dropdown-menu dropdown-menu-dark bg-dark border-0 p-0 pb-md-2" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">ALL</a></li>
+                            <li><a class="dropdown-item" href="{% url 'products-list' %}">ALL</a></li>
                             {% if categories %}
                             <li><hr class="dropdown-divider" /></li>
                             {% endif %}
                             {% for category in categories %}
-                            <li><a class="dropdown-item" href="#!">{{ category.category_name|title }}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'products-list' %}?category={{category.category_name}}">{{ category.category_name|title }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -40,15 +42,15 @@
                     <ul class="navbar-nav m-3">
                         {% if user.is_authenticated %}
                         <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link" href="{% url 'account_profile' user.slug %}">{{ user.phone_number }}</a><span
-                                class="d-none d-md-block" style="color: gainsboro;">|</span>
+                            <a class="nav-link" href="{% url 'account_profile' %}">{{ user.phone_number }}</a><span
+                                class="d-none d-lg-block" style="color: gainsboro;">|</span>
                         </li>
                         <li class="nav-item d-flex align-items-center">
                             <a class="nav-link" href="{% url 'account_logout' %}">LOG OUT</a>
                         </li>
                         {% else %}
                         <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link" href="{% url 'account_login' %}">LOG IN</a><span class="d-none d-md-block"
+                            <a class="nav-link" href="{% url 'account_login' %}">LOG IN</a><span class="d-none d-lg-block"
                                 style="color: gainsboro;">|</span>
                         </li>
                         <li class="nav-item d-flex align-items-center">
@@ -65,12 +67,68 @@
             </div>
         </div>
     </nav>
+    <button id="toTopBtn" class="bi bi-arrow-up bg-dark text-light p-2 px-3 rounded border-0" title="Go to top"></button>
     {% block content %}
 
-    {% endblock content %}
-    <footer class="py-5 bg-dark">
-        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Sobhan Imani 2023</p></div>
-    </footer>
+    {% endblock content %}  
+    <footer id="footer" class="footer-10">
+		<div class="container">
+			<div class="row mb-5 pb-3 g-0">
+				<div class="col-md-4 mb-md-0 mb-4 d-flex">
+					<div class="con con-1 w-100 py-5">
+						<div class="con-info w-100 text-center">
+							<div class="icon d-flex align-items-center justify-content-center">
+								<span class="bi bi-telephone"></span>
+							</div>
+							<div class="text">
+								<span>(+98) 912 345 6789</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 mb-md-0 mb-4 d-flex">
+					<div class="con con-2 w-100 py-5">
+						<div class="con-info w-100 text-center">
+							<div class="icon d-flex align-items-center justify-content-center">
+								<span class="bi bi-envelope"></span>
+							</div>
+							<div class="text">
+								<span>sobhanimani81@gmail.com</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 mb-md-0 mb-4 d-flex">
+					<div class="con con-3 w-100 py-5">
+						<div class="con-info w-100 text-center">
+							<div class="icon d-flex align-items-center justify-content-center">
+								<span class="bi bi-house"></span>
+							</div>
+							<div class="text">
+								<span>203 Fake Street, Tehran, Iran</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mt-5 pt-4 border-top">
+				<div class="col-md-6 col-lg-8 mb-md-0 mb-4">
+					<p class="copyright mb-0">
+						Copyright &copy;
+						<script>document.write(new Date().getFullYear());</script> All rights reserved. | This site is
+						made with <i class="bi bi-heart-fill" aria-hidden="true"></i> by Sobhan Imani.
+				</div>
+				<div class="col-md-6 col-lg-4 text-md-end">
+					<ul class="p-0">
+						<li class="btn btn-dark rounded-pill"><a class="text-light" href="www.linkedin.com/in/sobhan-imani" target="_blank" rel="noopener noreferrer" data-toggle="tooltip" data-placement="top"
+								title="LinkedIn"><span class="bi-linkedin"></span></a></li>
+						<li class="btn btn-dark rounded-pill"><a class="text-light" href="https://github.com/FlappySobhan/" target="_blank" rel="noopener noreferrer" data-toggle="tooltip" data-placement="top"
+								title="Github"><span class="bi-github"></span></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
 integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
@@ -78,4 +136,8 @@ crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
 integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
 crossorigin="anonymous"></script>
+<script src="{% static 'js/jquery-3.6.3.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+{% block scripts %}
+{% endblock scripts %}
 </html>

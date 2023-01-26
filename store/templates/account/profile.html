@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "../base.html" %}
 {% load static %}
 {% block title %}Profile{% endblock %}
 
@@ -18,9 +18,9 @@
         <h4>Wish List:</h4>
         <ul>
             {% if profile.wishlist.all %}
+            <li>name   -   price   -   is available</li><hr>
             {% for item in profile.wishlist.all %}
-            <li>name : price : is available</li>
-            <li>{{ item.name }} : {{ item.price }} : {% if item.stock %}yes{% else %}no{% endif %}
+            <li>{{ item.name }} - {{ item.price }} - {% if item.stock %}yes{% else %}no{% endif %}
             </li>
             {% endfor %}
 
