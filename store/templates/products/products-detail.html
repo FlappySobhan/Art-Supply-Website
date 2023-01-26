@@ -3,8 +3,8 @@
 {% block title %}{{product.name}}{% endblock %}
 
 {% block content %}
-<div class="container m-5">
-    <div class="row">
+<div class="container my-5">
+    <div class="row m-0">
         <div id="carouselControls" class="carousel slide col-md-6" data-bs-ride="true">
             {% if product.picture2 %}
             <div class="carousel-indicators">
@@ -72,19 +72,9 @@
 {% endblock %}
 {% block scripts %}
     <script>
-
-        // document.getElementById("wishlist").onclick = () => {
-        //     wish = this.dataset['wish']
-        //     fetch('/product/{{product.id}}', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify({
-        //             wish : true
-        //         })
-        //     })
-        // }
+        $(function() {
+            $('[data-bs-toggle="tooltip"]').tooltip()
+        })
     </script>  
 
 {% endblock %}

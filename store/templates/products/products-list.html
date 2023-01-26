@@ -4,7 +4,8 @@
 
 {% block content %}
 <section class="py-5">
-    <h3 class="fw-bolder mx-5 mb-4 pb-4">Products</h3>
+    <h3 class="fw-bolder mx-5 mb-4 pb-4"><a class="link text-decoration-none text-black"
+         href="{% url 'products-list' %}">Products</a></h3>
     <div class="container-fluid px-4 px-lg-5 mt-3 row gx-md-5">
         <div class="col-md-10 order-2 order-md-1">
             <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-first">
@@ -20,8 +21,16 @@
                 <select id="category-select" class="form-select" aria-label="Categories" name="category" onchange="categorySelect(this)">
                     <option value="">All</option>
                     {% for item in categories %}
-                    <option value="{{ item.category_name }}" {% if item.category_name == category %}selected{% endif %}>
-                        {{ item.category_name }}</option>
+                    {% if item.category_set %}
+                    <optgroup value="{{ item.category_name }}" label="{{ item.category_name }}">
+                        <option value="{{item.category_name}}" {% if item.category_name == category %}selected{% endif %}>{{item.category_name}} - All</option>
+                        {% for subitem in item.category_set.all %}
+                        <option value="{{ subitem.category_name }}">{{ subitem.category_name }}</option>
+                        {% endfor %}
+                    </optgroup>
+                    {% else %}
+                    <option value="{{item.category_name}}" {% if item.category_name == category %}selected{% endif %}>{{item.category_name}} - All</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
                 <div id="more-categories"></div>
@@ -61,29 +70,4 @@
     </div>
 </section>
 
-{% endblock %}
-{% block scripts %}
-<script>
-    function categorySelect(select) {
-        selectedOption = select[select.selectedIndex].value;
-        {% for item in categories %}
-        if (selectedOption == "{{ item.category_name }}") {
-            {% if item.category_set.count != 0 %}
-            document.getElementById("more-categories").innerHTML = `
-            <select class="form-select mt-3" aria-label="Categories" name="category" onchange="categorySelect(this)">
-                <option value="{{item.category_name}}">All</option>
-                {% for subitem in item.category_set.all %}
-                <option value="{{ subitem.category_name }}">{{ subitem.category_name }}</option>
-                {% endfor %}
-            </select>
-            `;
-            {% else %}
-            document.getElementById("more-categories").innerHTML = '';
-            {% endif %}
-            select.name = "";
-        }
-        {% endfor %}
-    }   
-
-</script>
 {% endblock %}

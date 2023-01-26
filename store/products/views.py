@@ -41,7 +41,6 @@ class ProductView(DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
-        print(self.request.POST)
         object = self.get_object()
         if self.request.user.is_authenticated:
             if self.request.user.profile.wishlist.filter(pk=object.pk).exists():
