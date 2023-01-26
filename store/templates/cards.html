@@ -1,0 +1,30 @@
+<div class="col mb-5">
+    <div class="card h-100 shadow">
+        <!-- discount badge-->
+        {% if item.discount %}
+        <div class="badge bg-success text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+            -%{{item.discount}}</div>
+        {% endif %}
+        <!-- Product image-->
+        <img class="card-img-top" src="{{ item.picture1.url }}" alt="Product Image" />
+        <!-- Product details-->
+        <div class="card-body p-4">
+            <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder mb-3"><a class="link text-decoration-none text-black" href="{% url 'product-detail' item.id %}">
+                        {{item.name }}</a></h5>
+                <!-- Product price-->
+                {% if item.discount %}
+                <span class="text-muted text-decoration-line-through small">${{ item.price }}</span>
+                {% endif %}
+                ${{ item.final_price }}
+            </div>
+        </div>
+        <!-- Product actions-->
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center">
+                <a class="btn btn-outline-dark mt- mx-2" href="#">Add to cart</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "../base.html" %}
 {% block title %}Log In{% endblock %}
 
 {% block content %}
@@ -7,8 +7,8 @@
   <div class="border rounded w-50 mt-4 mb-5 pt-4">
     <h2 class="text-center">Login</h2>
     <div class="d-flex justify-content-center">
+      {% include '../messages.html' %}
       <form method="post" class="m-5 p-3">
-        {% include 'messages.html' %}
         {% csrf_token %}
         <div class="row">
           {% for field in form %}

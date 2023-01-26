@@ -16,7 +16,7 @@ class UsersManager(BaseUserManager):
             email=self.normalize_email(email) if email else None,
             first_name=first_name,
             last_name=last_name,
-            phone_number=phone_number[-10:],
+            phone_number=phone_number,
             is_admin=False,
         )
         user.set_password(password)
@@ -24,11 +24,11 @@ class UsersManager(BaseUserManager):
         return user
 
     def create_superuser(self, phone_number, password, email=None,first_name=None,
-    last_name=None, is_superuser=False):
+    last_name=None):
         user = self.create_user(phone_number,password, email, 
         first_name, last_name)
         user.is_active = True
         user.is_admin = True
-        user.is_superuser = is_superuser
+        user.is_superuser = True
         user.save(using=self._db)
         return user
