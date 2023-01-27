@@ -4,7 +4,6 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from products.models import Item 
 from .validators import phone_number_validator
 from .managers import UsersManager
-from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -37,7 +36,6 @@ class Profile(BaseModel):
         verbose_name = _("Profile")
         verbose_name_plural = _("Profiles")
     user = models.OneToOneField(CustomUser,models.CASCADE, verbose_name=_('User'), related_name='profile')
-    picture = models.ImageField(_('Profile Picture'), default='profile-images/default.png', upload_to='profile-images')
     wishlist = models.ManyToManyField(Item, blank=True, verbose_name=_('Wishlist'))
 
     def __str__(self) -> str:

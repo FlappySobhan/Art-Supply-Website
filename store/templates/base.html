@@ -25,11 +25,11 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link" href="#footer">ABOUT US</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">PRODUCTS</a>
-                        <ul class="dropdown-menu dropdown-menu-dark bg-dark border-0 p-0 pb-md-2" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{% url 'products-list' %}">ALL</a></li>
+                        <a class="nav-link dropdown-toggle" id="productsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
+                        <ul class="dropdown-menu dropdown-menu-dark bg-dark border-0 p-0 pb-md-2" aria-labelledby="productsDropdown">
+                            <li><a class="dropdown-item" href="{% url 'products-list' %}">All</a></li>
                             {% if categories %}
                             <li><hr class="dropdown-divider" /></li>
                             {% endif %}
@@ -46,32 +46,66 @@
                                 class="d-none d-lg-block" style="color: gainsboro;">|</span>
                         </li>
                         <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link" href="{% url 'account_logout' %}">LOG OUT</a>
+                            <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                         </li>
                         {% else %}
                         <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link" href="{% url 'account_login' %}">LOG IN</a><span class="d-none d-lg-block"
-                                style="color: gainsboro;">|</span>
+                            <a class="nav-link" href="{% url 'account_login' %}">Login</a><span
+                             class="d-none d-lg-block text-white-50">|</span>
                         </li>
                         <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link" href="{% url 'account_signup' %}">SIGN UP</a>
+                            <a class="nav-link" href="{% url 'account_signup' %}">Signup</a>
                         </li>
                         {% endif %}
                     </ul>
                 </div>
-                    <button class="btn btn-outline-light" id="cart-load">
+                    <button class="btn btn-outline-light"
+                     data-bs-toggle="offcanvas" data-bs-target="#cartSidebar" aria-controls="cartSidebar">
                         <i class="bi-cart-fill me-1"></i>
                         Cart
-                        <span class="badge bg-dark text-white ms-1 rounded-pill">{{ cart_counter|default:"0" }}</span>
+                        <span class="badge bg-light text-dark ms-1 rounded-pill">{{ cart_counter|default:"0" }}</span>
                     </button>
             </div>
         </div>
     </nav>
     <button id="toTopBtn" class="bi bi-arrow-up bg-dark text-light p-2 px-3 rounded border-0" title="Go to top"></button>
+    
+    <div class="offcanvas offcanvas-end px-lg-3" data-bs-scroll="true" data-bs-backdrop="false"
+     tabindex="-1" id="cartSidebar" aria-labelledby="cartLabel">
+        <div class="offcanvas-header border-bottom">
+        <h5 id="cartLabel">Shopping Cart</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <!-- cart items -->
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <figure class="figure mt-3" style="width: 30%;">
+                        <a href="#">
+                            <img src="/media/item-images/default.jpg" class="figure-img img-fluid rounded" alt="">
+                        </a>
+                      </figure>
+                    <div class="text-center">
+                        <h6 class="text-capitalize">Long name</h6>
+                        <p class="font-monospace"><small class="text-muted">1 x</small> $200</p>
+                    </div>
+                    <button href="" class="btn btn-light bi-x btn-sm border rounded-pill mb-2"
+                        style="border-color: rgba(0, 0, 0, 0.26)!important;"></button>
+                </li>
+                <li class="list-group-item d-flex justify-content-between fs-5">
+                    <p class="text-muted">Subotal:</p>
+                    <span class="fw-bolder font-monospace">$200.00</span>
+                </li>
+                <li class="list-group-item">
+                    <button class="btn btn-dark w-100 py-2 fw-bold mt-2">CHECKOUT</button>
+                </li>
+            </ul>
+        </div>
+    </div>
     {% block content %}
 
     {% endblock content %}  
-    <footer id="footer" class="footer-10">
+    <footer id="about" class="footer-10">
 		<div class="container">
 			<div class="row mb-5 pb-3 g-0">
 				<div class="col-md-4 mb-md-0 mb-4 d-flex">

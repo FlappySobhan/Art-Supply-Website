@@ -43,4 +43,4 @@ class UserUpdateForm(UserChangeForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('user', 'picture', 'is_deleted', 'wishlist')
+        fields = ('user', 'is_deleted', 'wishlist')
