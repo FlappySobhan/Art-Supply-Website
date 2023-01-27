@@ -41,13 +41,16 @@
             {% if user.is_authenticated %}
             <form action="{% url 'product-detail' product.pk %}" method="POST">
                 {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{product.id}}">
                 {% if is_in_wishlist %}
+                <input type="hidden" name="wishlist" value="remove">
                 <div><button class="btn btn-danger float-end" type="submit" data-bs-toggle="tooltip"
                     title="Remove from wishlist">
-                        <i class="bi bi-heart-fill"></i></div>
-                {% else %}
-                <!-- wishlist button -->
-                <div><button class="btn btn-outline-danger float-end" type="submit" data-bs-toggle="tooltip"
+                    <i class="bi bi-heart-fill"></i></div>
+                    {% else %}
+                    <!-- wishlist button -->
+                    <input type="hidden" name="wishlist" value="add">
+                    <div><button class="btn btn-outline-danger float-end" type="submit" data-bs-toggle="tooltip"
                     title="Add to wishlist">
                         <i class="bi bi-heart"></i></div>
                 {% endif %}
