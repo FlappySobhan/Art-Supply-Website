@@ -17,7 +17,7 @@ class Order(BaseModel):
     class Meta:
         verbose_name = _("Order")
         verbose_name_plural = _("Orders")
-    profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True,verbose_name=_('Profile'))
+    profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True,verbose_name=_('Profile'), related_name='orders')
     price = models.DecimalField(_('Price'), max_digits=9, decimal_places=2)
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True, blank=True, verbose_name=_('Address'))
     status = models.CharField(_('Status'), max_length=10, choices=STATUS, default='new')

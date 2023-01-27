@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect,get_object_or_404
-from django.views.generic import DetailView,CreateView
+from django.views.generic import CreateView,UpdateView
 from django.contrib import messages
 from django.contrib.auth import  get_user_model
 from django.contrib.auth.views import LoginView as BaseLoginView
@@ -11,12 +11,13 @@ from django.urls import reverse_lazy as _
 User = get_user_model()
 from .forms import SignupForm, LoginForm
 
-class ProfileView(PermissionRequiredMixin, DetailView):
+class ProfileView(PermissionRequiredMixin, UpdateView):
     model = User
     template_name = "account/profile.html"
-    context_object_name = "logged_in_user"
     permission_denied_message = _("You don't have permission to view this page.Check your account!")
     login_url = "account_login"
+    fields = ['first_name', 'last_name', 'email', 'phone_number']
+    success_url = "/account/profile"
 
     def has_permission(self):
         if self.request.user.is_authenticated and self.get_object() == self.request.user:

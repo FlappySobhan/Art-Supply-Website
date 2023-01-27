@@ -42,8 +42,9 @@ class ProductView(DetailView):
 
     def post(self, request, *args, **kwargs):
         object = self.get_object()
-        if self.request.user.is_authenticated:
-            if self.request.user.profile.wishlist.filter(pk=object.pk).exists():
+        value = self.request.POST.get('wishlist')
+        if self.request.user.is_authenticated and value:
+            if self.request.user.profile.wishlist.filter(pk= self.request.POST.get('product_id')).exists():
                 self.request.user.profile.wishlist.remove(object)
             else:
                 self.request.user.profile.wishlist.add(object)
