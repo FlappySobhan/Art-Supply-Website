@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container my-5">
     <div class="row m-0">
-        <div id="carouselControls" class="carousel slide col-md-6" data-bs-ride="true">
+        <div id="carouselControls" class="carousel slide my-2 col-md-6" data-bs-ride="true">
             {% if product.picture2 %}
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselControls" data-bs-slide-to="0" class="active"
@@ -36,8 +36,8 @@
         {% endif %}
     </div>
     <div class="col-md-6">
-        <div class="d-flex justify-content-between align-items-center">
-            <h1 class="border-bottom pb-3">{{product.name}}</h1>
+        <div class="d-flex justify-content-between align-items-center border-bottom">
+            <h1 class=" pb-3">{{product.name}}</h1>
             {% if user.is_authenticated %}
             <form action="{% url 'product-detail' product.pk %}" method="POST">
                 {% csrf_token %}
@@ -54,16 +54,28 @@
             </form>
             {% endif %}
         </div>
-        <span class="">Description:</span>
-        <p class="mt-4">{{product.descriptions}}</p>
-        <div class="mt-5 d-flex justify-content-between align-items-center border-top">
+        <p class="mt-4 lead"><small>{{product.descriptions}}</small></p>
+        <div class="mt-4 pt-2 d-flex justify-content-between">
+            {% if product.category %}
+            <div class="text-start">
+                <a href="{% url 'products-list' %}?category={{product.category}}" 
+                class="badge text-decoration-none btn-dark">{{product.category}}</a>
+            </div>
+            {% endif %}
+            {% if product.stock < 3 %}
+            <div class="text-end">
+                <span class="badge bg-danger">Only {{product.stock}} left in stock</span>
+            </div>
+            {% endif %}
+        </div>
+        <div class="mt-2 d-flex justify-content-between align-items-center border-top">
             <div class="d-flex">
                 {% if product.discount %}
                 <span class="text-muted text-decoration-line-through">${{ product.price }}</span>
                 {% endif %}
-                <p class="display-6">${{ product.final_price }}</p>
+                <p class="display-6"><strong>${{ product.final_price }}</strong></p>
             </div>
-            <div><a href="#" class="btn btn-primary">Add to cart</a></div>
+            <div><button class="btn btn-primary">Add to cart</button></div>
         </div>
     </div>
 </div>
