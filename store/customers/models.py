@@ -46,7 +46,7 @@ class Address(BaseModel):
         verbose_name = _("Address")
         verbose_name_plural = _("Addresses")
         
-    profile = models.ForeignKey(Profile,on_delete=models.CASCADE, verbose_name=_('Profile'))
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE, verbose_name=_('Profile'), related_name='addresses')
     country = models.CharField(_('Country'), max_length=15)
     city = models.CharField(_('City'), max_length=25)
     district = models.CharField(_('District'), max_length=25, blank=True, null=True)

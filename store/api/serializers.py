@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from orders.models import Order, OrderItem
-from customers.models import Address
+from customers.models import Address, Profile
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,3 +19,10 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['price', 'address', 'status', 'items']
+
+class ProfileSerializer(serializers.ModelSerializer):
+    orders = OrderSerializer(many=True)
+    addresses = AddressSerializer(many=True)
+    class Meta:
+        model = Profile
+        fields = ['orders', 'addresses', 'wishlist']
