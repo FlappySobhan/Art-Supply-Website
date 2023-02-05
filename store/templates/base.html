@@ -46,7 +46,7 @@
                                 class="d-none d-lg-block" style="color: gainsboro;">|</span>
                         </li>
                         <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                            <a id="logout" class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                         </li>
                         {% else %}
                         <li class="nav-item d-flex align-items-center">
@@ -172,6 +172,16 @@ integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0Ec
 crossorigin="anonymous"></script>
 <script src="{% static 'js/jquery-3.6.3.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+<script>
+let logoutbtn = document.getElementById("logout");
+if (logoutbtn){
+logoutbtn.addEventListener("click", function () {
+localStorage.removeItem("token");
+localStorage.removeItem("refreshToken");
+console.log("logout");
+});
+}
+</script>
 {% block scripts %}
 {% endblock scripts %}
 </html>

@@ -39,22 +39,19 @@
         <div class="d-flex justify-content-between align-items-center border-bottom">
             <h1 class=" pb-3">{{product.name}}</h1>
             {% if user.is_authenticated %}
-            <form action="{% url 'product-detail' product.pk %}" method="POST">
                 {% csrf_token %}
-                <input type="hidden" name="product_id" value="{{product.id}}">
-                {% if is_in_wishlist %}
-                <input type="hidden" name="wishlist" value="remove">
-                <div><button class="btn btn-danger float-end" type="submit" data-bs-toggle="tooltip"
-                    title="Remove from wishlist">
-                    <i class="bi bi-heart-fill"></i></div>
-                    {% else %}
+                <div>
+                    {% if is_in_wishlist %}
                     <!-- wishlist button -->
-                    <input type="hidden" name="wishlist" value="add">
-                    <div><button class="btn btn-outline-danger float-end" type="submit" data-bs-toggle="tooltip"
+                    <button id="wishlist" class="btn btn-danger float-end" data-bs-toggle="tooltip"
+                    title="Remove from wishlist">
+                    <i class="bi bi-heart-fill"></i>
+                    {% else %}
+                    <button id="wishlist" class="btn btn-outline-danger float-end" data-bs-toggle="tooltip"
                     title="Add to wishlist">
-                        <i class="bi bi-heart"></i></div>
-                {% endif %}
-            </form>
+                        <i class="bi bi-heart"></i>
+                    {% endif %}
+                </div>
             {% endif %}
         </div>
         <p class="mt-4 lead"><small>{{product.descriptions}}</small></p>
@@ -110,9 +107,38 @@
 
 {% endblock %}
 {% block scripts %}
-    <script>
+    <script>      
         $(function() {
             $('[data-bs-toggle="tooltip"]').tooltip()
+        })
+
+        let wishlist = document.getElementById('wishlist');
+        wishlist.addEventListener('click', function() {
+            let url = '{% url "wishlist" product.id %}';
+            let token = 'Bearer '+localStorage.getItem('token');
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                }
+            }).then(response => {
+                if (response.status == '200') {
+                    if (wishlist.classList.contains('btn-outline-danger')) {
+                        wishlist.classList.remove('btn-outline-danger');
+                        wishlist.classList.add('btn-danger');
+                        wishlist.title = 'Remove from wishlist';
+                        wishlist.innerHTML = '<i class="bi bi-heart-fill"></i>';
+                        $(this).attr('data-bs-original-title', 'Remove from wishlist');
+                    } else {
+                        wishlist.classList.remove('btn-danger');
+                        wishlist.classList.add('btn-outline-danger');
+                        wishlist.title = 'Add to wishlist';
+                        wishlist.innerHTML = '<i class="bi bi-heart"></i>';
+                        $(this).attr('data-bs-original-title', 'Add to wishlist');
+                    }
+                }
+            })
         })
     </script>  
 

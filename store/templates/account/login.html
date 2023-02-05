@@ -8,7 +8,7 @@
     <h2 class="text-center">Login</h2>
     <div class="d-flex justify-content-center">
       {% include '../messages.html' %}
-      <form method="post" class="m-5 p-3">
+      <form id="login-form" method="post" class="m-5 p-3">
         {% csrf_token %}
         <div class="row">
           {% for field in form %}
@@ -30,6 +30,31 @@
     </div>
   </div>
 </div>
-
+{% endblock %}
+{% block scripts %}
+<script>
+  let form = document.getElementById('login-form');
+  form.addEventListener("submit", (e) => {
+    let formdata = {
+      "phone_number": form.username.value,
+      "password": form.password.value
+    }
+    fetch("{% url 'token_obtain_pair' %}", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formdata)
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.access) {
+          localStorage.setItem('token', data.access);
+          localStorage.setItem('refreshToken', data.refresh);
+        }
+      })
+    }
+  )
+</script>
 
 {% endblock %}

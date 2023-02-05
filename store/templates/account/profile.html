@@ -13,8 +13,8 @@
                     href="#Wishlist" role="tab" aria-controls="Wishlist">Wishlist</a>
                 <a class="list-group-item list-group-item-action" id="list-orders-list" data-bs-toggle="list"
                     href="#list-orders" role="tab" aria-controls="list-orders">Order History</a>
-                <a class="list-group-item list-group-item-action" id="Addresses-list" data-bs-toggle="list"
-                    href="#Addresses" role="tab" aria-controls="Addresses">Addresses</a>
+                <a class="list-group-item list-group-item-action" id="Address-list" data-bs-toggle="list"
+                    href="#Address" role="tab" aria-controls="Address">Address</a>
             </div>
         </div>
         <div class="col-8">
@@ -44,12 +44,8 @@
                             {{item.descriptions|truncatewords:5}}                            
                             <p class="font-monospace mt-3 mb-1">${{item.price}}</p>
                           </div>
-                          <form method="post" action="{% url 'product-detail' item.id %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="product_id" value="{{item.id}}">
-                            <input type="hidden" name="wishlist" value="remove">
-                          <button type="submit" class="btn btn-light bi-x btn-sm border rounded-pill mb-2"
-                          style="border-color: rgba(0, 0, 0, 0.26)!important;"></button>
+                          <button class="btn btn-light bi-x btn-sm border rounded-pill mb-2 btn-wish"
+                          style="border-color: rgba(0, 0, 0, 0.26)!important;" data-item="{{item.id}}"></button>
                         </li>
                           {% endfor %}
                         {% endif %}
@@ -75,12 +71,44 @@
                         {% endif %}
                     </ol>
                 </div>
-                <div class="tab-pane fade" id="Addresses" role="tabpanel" aria-labelledby="Addresses-list">...
+                <div class="tab-pane fade" id="Address" role="tabpanel" aria-labelledby="Address-list">...
                 </div>
             </div>
         </div>
     </div>
 
 </div>
-
+{% endblock %}
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $('.btn-wish').click(function () {
+            var item = $(this).data('item');
+            var url = '/api/wishlist/' + item;
+            let token = 'Bearer '+localStorage.getItem('token');
+            fetch(url, {
+                    method: "POST",
+                    headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                    },
+                }
+            ).then(response => response.json())
+            .then(data => {
+                if (data) {
+                    $(this).parent().addClass('bg-danger');
+                    $(this).parent().fadeOut(1000);
+                    setTimeout(() => {
+                        if(data.wishlist.length == 0){
+                            $(this).parent().parent().append('<h5 class="font-monospace mx-4">Wishlist is empty</h5>');
+                        }
+                        $(this).parent().remove();
+                    }, 990);
+                }
+            } 
+            )
+                
+        });
+    });
+</script>
 {% endblock %}
