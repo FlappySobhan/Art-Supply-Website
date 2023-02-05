@@ -12,6 +12,7 @@ admin.site.index_title = _("Adminstration")
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
     path("admin/", admin.site.urls),
+    path("api/", include("api.urls"), name="api"),
     path("account/", include("customers.urls")),
     path("products/", include("products.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

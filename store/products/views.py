@@ -39,14 +39,4 @@ class ProductView(DetailView):
         if self.request.user.is_authenticated:
             context['is_in_wishlist'] = self.request.user.profile.wishlist.filter(pk=self.object.pk).exists()
         return context
-
-    def post(self, request, *args, **kwargs):
-        object = self.get_object()
-        value = self.request.POST.get('wishlist')
-        if self.request.user.is_authenticated and value:
-            if self.request.user.profile.wishlist.filter(pk= self.request.POST.get('product_id')).exists():
-                self.request.user.profile.wishlist.remove(object)
-            else:
-                self.request.user.profile.wishlist.add(object)
-            self.request.user.profile.save()
-        return self.get(request, *args, **kwargs)
+        

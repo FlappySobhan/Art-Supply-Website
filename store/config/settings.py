@@ -5,8 +5,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'j1wqlr-x(hd#xgad)bp8=#at0hgp)q7kb=c2h0nh9cl!gqs%2='
-
 # SECURITY WARNING: don't run with debug turned on in production!
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -127,3 +133,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 RESTRICTED_COUNTRY_CODES = ['US', 'CA']
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}
