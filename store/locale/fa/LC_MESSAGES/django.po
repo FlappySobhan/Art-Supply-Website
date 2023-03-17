@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-05 15:49+0000\n"
+"POT-Creation-Date: 2023-02-04 00:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,103 +18,119 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: config/urls.py:8
+msgid "Store Adminstration"
+msgstr "مدیریت فروشگاه"
+
+#: config/urls.py:9
+#, fuzzy
+#| msgid "Admin"
+msgid "Store Admin"
+msgstr "مدیریت"
+
+#: config/urls.py:10
+msgid "Adminstration"
+msgstr "مدیریت"
+
 #: core/models.py:6
 msgid "Deleted"
 msgstr "پاک شده"
 
 #: core/models.py:7
-msgid "Create Date"
+#, fuzzy
+#| msgid "Create Date"
+msgid "Created at"
 msgstr "تاریخ ایجاد"
 
-#: core/models.py:8
-msgid "Activated"
-msgstr "فعال"
+#: customers/apps.py:7
+msgid "Customer"
+msgstr "مشتری"
 
-#: customers/models.py:12 customers/models.py:55
+#: customers/apps.py:8
+msgid "Customers"
+msgstr "مشتریان"
+
+#: customers/models.py:11 customers/models.py:38
 msgid "User"
 msgstr "کاربر"
 
-#: customers/models.py:13
+#: customers/models.py:12
 msgid "Users"
 msgstr "کاربران"
 
-#: customers/models.py:14
+#: customers/models.py:13
 msgid "Phone Number"
 msgstr "شماره همراه"
 
-#: customers/models.py:15
+#: customers/models.py:14
 msgid "E-mail"
 msgstr "ایمیل"
 
-#: customers/models.py:16
+#: customers/models.py:15
 msgid "First Name"
 msgstr "نام"
 
-#: customers/models.py:17
+#: customers/models.py:16
 msgid "Last Name"
 msgstr "نام خانوادگی"
 
-#: customers/models.py:18
+#: customers/models.py:17
 msgid "Active"
 msgstr "فعال"
 
-#: customers/models.py:19
+#: customers/models.py:18
 msgid "Admin"
 msgstr "ادمین"
 
-#: customers/models.py:20
+#: customers/models.py:19
 msgid "Super User"
 msgstr "ابرکاربر"
 
-#: customers/models.py:21
-msgid "Slug"
-msgstr "Slug"
+#: customers/models.py:20
+msgid "Last Login"
+msgstr "آخرین ورود"
 
-#: customers/models.py:53 customers/models.py:67 orders/models.py:19
+#: customers/models.py:36 customers/models.py:49 orders/models.py:20
 msgid "Profile"
 msgstr "پروفایل"
 
-#: customers/models.py:54
+#: customers/models.py:37
 msgid "Profiles"
 msgstr "پروفایل‌ها"
 
-#: customers/models.py:56
-msgid "Profile Picture"
-msgstr "تصویر پروفایل"
-
-#: customers/models.py:57
+#: customers/models.py:39
 msgid "Wishlist"
 msgstr "لیست علاقه‌مند‌ی‌ها"
 
-#: customers/models.py:64 orders/models.py:23
+#: customers/models.py:46 orders/models.py:22
 msgid "Address"
 msgstr "آدرس"
 
-#: customers/models.py:65
+#: customers/models.py:47
 msgid "Addresses"
 msgstr "آدرس‌ها"
 
-#: customers/models.py:68
+#: customers/models.py:50
 msgid "Country"
 msgstr "کشور"
 
-#: customers/models.py:69
+#: customers/models.py:51
 msgid "City"
 msgstr "شهر"
 
-#: customers/models.py:70
+#: customers/models.py:52
 msgid "District"
 msgstr "استان"
 
-#: customers/models.py:71
+#: customers/models.py:53
 msgid "Street"
 msgstr "خیابان"
 
-#: customers/models.py:72
+#: customers/models.py:54
 msgid "Alley"
 msgstr "کوچه"
 
-#: customers/models.py:73
+#: customers/models.py:55
 msgid "Postal Code"
 msgstr "کد پستی"
 
@@ -124,86 +140,160 @@ msgid ""
 "allowed."
 msgstr "شماره همراه باید به صورت '۹۱۲۳۴۵۶۷۸۹' وارد شود. حداکثر ۱۲ کارکتر."
 
-#: orders/models.py:8 orders/models.py:20
-msgid "Coupon"
-msgstr "کوپن"
+#: customers/views.py:17
+msgid "You don't have permission to view this page.Check your account!"
+msgstr "شما اجازه‌ی مشاهده‌ی این صفحه را ندارید! اکانت خود را مجدد چک کنید."
 
-#: orders/models.py:9
-msgid "Coupons"
-msgstr "کوپن‌ها"
+#: customers/views.py:52
+msgid "You are already logged in!"
+msgstr "شما قبلا وارد شده‌اید!"
 
-#: orders/models.py:10
-msgid "Code"
-msgstr "کد"
+#: customers/views.py:67
+msgid "Account created successfully"
+msgstr "اکانت با موفقیت ساخته شد."
 
-#: orders/models.py:11
-msgid "Percent"
-msgstr "درصد"
-
-#: orders/models.py:12
-msgid "Max Discount"
-msgstr "بیشترین حالت تخفیف"
-
-#: orders/models.py:13
-msgid "End Date"
-msgstr "تاریخ پایان"
-
-#: orders/models.py:17
+#: orders/apps.py:8 orders/models.py:18 orders/models.py:34
 msgid "Order"
 msgstr "سفارش"
 
-#: orders/models.py:18
+#: orders/apps.py:9 orders/models.py:19
 msgid "Orders"
 msgstr "سفارشات"
 
-#: orders/models.py:21
-msgid "Discount"
-msgstr "تخفیف"
+#: orders/models.py:10
+msgid "New"
+msgstr "جدید"
 
-#: orders/models.py:22 products/models.py:18
+#: orders/models.py:11
+msgid "Pending"
+msgstr "در انتظار"
+
+#: orders/models.py:12
+msgid "Accepted"
+msgstr "تایید شده"
+
+#: orders/models.py:13
+msgid "Rejected"
+msgstr "رد شده"
+
+#: orders/models.py:14
+msgid "Canceled"
+msgstr "لغو شده"
+
+#: orders/models.py:15
+msgid "Delivered"
+msgstr "دریافت شده"
+
+#: orders/models.py:21 products/models.py:22
 msgid "Price"
 msgstr "قیمت"
 
-#: products/models.py:7 products/models.py:22
-msgid "Category"
-msgstr "دسته‌بندی"
+#: orders/models.py:23
+msgid "Status"
+msgstr "وضعیت"
 
-#: products/models.py:8
-msgid "Categories"
-msgstr "دسته‌‌بندی ها"
-
-#: products/models.py:9
-msgid "Category Name"
-msgstr "نام دسته‌بندی"
-
-#: products/models.py:10
-msgid "Sub Category"
-msgstr "دسته‌بندی بالایی"
-
-#: products/models.py:14
-msgid "Item"
-msgstr "آیتم"
-
-#: products/models.py:15
+#: orders/models.py:24 products/models.py:19
 msgid "Items"
 msgstr "آیتم‌ها"
 
-#: products/models.py:16
+#: orders/models.py:25
+msgid "Last Modified"
+msgstr "آخرین ویرایش"
+
+#: orders/models.py:26
+#, fuzzy
+#| msgid "Order"
+msgid "Is Ordered"
+msgstr "سفارش"
+
+#: orders/models.py:32
+#, fuzzy
+#| msgid "Order"
+msgid "Order Item"
+msgstr "سفارش"
+
+#: orders/models.py:33
+#, fuzzy
+#| msgid "Orders"
+msgid "Order Items"
+msgstr "سفارشات"
+
+#: orders/models.py:35 products/models.py:18
+msgid "Item"
+msgstr "آیتم"
+
+#: orders/models.py:36
+msgid "Quantity"
+msgstr "تعداد"
+
+#: products/apps.py:8
+msgid "Product"
+msgstr "محصول"
+
+#: products/apps.py:9
+msgid "Products"
+msgstr "محصولات"
+
+#: products/models.py:8 products/models.py:26
+msgid "Category"
+msgstr "دسته‌بندی"
+
+#: products/models.py:9
+msgid "Categories"
+msgstr "دسته‌‌بندی ها"
+
+#: products/models.py:10
+msgid "Category Name"
+msgstr "نام دسته‌بندی"
+
+#: products/models.py:11
+msgid "Sub Category"
+msgstr "دسته‌بندی بالایی"
+
+#: products/models.py:20
 msgid "Name"
 msgstr "نام"
 
-#: products/models.py:17
+#: products/models.py:21
 msgid "Descriptions"
 msgstr "توضیحات"
 
-#: products/models.py:19
+#: products/models.py:23
 msgid "Main Picture"
 msgstr "تصویر اصلی"
 
-#: products/models.py:20
+#: products/models.py:24
 msgid "Secondary Picture"
 msgstr "تصویر فرعی"
 
-#: products/models.py:21
+#: products/models.py:25
 msgid "Stock"
 msgstr "تعداد در انبار"
+
+#: products/models.py:27
+msgid "Discount"
+msgstr "تخفیف"
+
+#~ msgid "Activated"
+#~ msgstr "فعال"
+
+#~ msgid "Profile Picture"
+#~ msgstr "تصویر پروفایل"
+
+#~ msgid "Coupon"
+#~ msgstr "کوپن"
+
+#~ msgid "Coupons"
+#~ msgstr "کوپن‌ها"
+
+#~ msgid "Code"
+#~ msgstr "کد"
+
+#~ msgid "Percent"
+#~ msgstr "درصد"
+
+#~ msgid "Max Discount"
+#~ msgstr "بیشترین حالت تخفیف"
+
+#~ msgid "End Date"
+#~ msgstr "تاریخ پایان"
