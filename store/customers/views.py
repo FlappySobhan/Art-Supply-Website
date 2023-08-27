@@ -64,7 +64,7 @@ class SignupView(UserPassesTestMixin, CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        messages.success(self.request, _("Account created successfully"))
+        messages.success(self.request, "Account created successfully")
         return redirect("account_login")
 
 class LoginView(BaseLoginView):
